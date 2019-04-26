@@ -11,6 +11,10 @@ module.exports = function(mongoose, news_url) {
             console.log(response.data);
             //get the top 10 headlines
             const $ = cheerio.load(response.data);
+            //select the headlines
+            var headlines = $('div.article-info header a').attr("title");
+            console.log(headlines);
+            
         });
     });
     return NewsController;
