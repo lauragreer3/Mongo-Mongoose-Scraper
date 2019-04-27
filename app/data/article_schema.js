@@ -1,6 +1,10 @@
-module.exports = function (mongoose) {
+var mongoose = require('mongoose');
+var autoIncrement = require('mongoose-auto-increment');
+autoIncrement.initialize(mongoose);
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-    var articleSchema = new Schema({
+
+    var articleSchema = new mongoose.Schema({
         headline: {
             type: String,
             unique: true,
@@ -10,7 +14,7 @@ module.exports = function (mongoose) {
         author: {
             type: String,
             required: false,
-            winlength: 1
+            minlength: 1
         },    
         url: {
             type:String,
@@ -34,8 +38,7 @@ module.exports = function (mongoose) {
         }]
     });
 
-    var Article = mongoose.model('Article', articleSchema);
-
+    
     // articleSchema.methods.findDuplicateArticle = function (article, cb) {
     //     //check if the article is already in the database
     //     results = this.model('Article').find({
@@ -47,7 +50,7 @@ module.exports = function (mongoose) {
 
     articleSchema.methods.saveArticle = function (article, cb) {
         var NewArticle = new Article({
-            headline: article.headline
+            headline: article.headline,
             author: article.author,
             url: article.url,
             body: article.body,
@@ -63,8 +66,8 @@ module.exports = function (mongoose) {
             }
         })
     };
-    var models = {
-        Articles: mongoose.model('Articles', Article)
-    };
-    return models;
-}
+
+    articleSchema.plugin(autoIncrement.plugin, 'Article');
+    var Article = mongoose.model('Article', articleSchema);
+
+    module.exports = Article;
