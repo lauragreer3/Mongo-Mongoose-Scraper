@@ -15,10 +15,8 @@ var hbs = exphbs.create({
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.set('views', path.join(__dirname, "app/views"));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/', newsController);

@@ -19,8 +19,12 @@ var Articles = require('../data/article_schema');
     var Articles = require('../data/article_schema');
 
     NewsController.get('/', function(req, res) {
-        var current_articles = Articles.find({}, limit(10).sort({ date_published: -1}));
-    })
+        // var current_articles = Articles.find({}, limit(10).sort({ date_published: -1})).then(function());
+        res.render('index', {
+            msg: 'testing',
+            articles: [],
+        });
+    });
 
     // NewsController.all('', function(req, res) {
     //     res.sendFile(path.join(__dirname, '../views'))
