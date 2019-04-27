@@ -26,9 +26,9 @@ var Articles = require('../data/article_schema');
         });
     });
 
-    // NewsController.all('', function(req, res) {
-    //     res.sendFile(path.join(__dirname, '../views'))
-    // })
+    NewsController.all('', function(req, res) {
+        res.sendFile(path.join(__dirname, '../views'))
+    })
 
     NewsController.get('/scrape_news', function(req, res) {
         axios.get(news_url).then((response) => {
