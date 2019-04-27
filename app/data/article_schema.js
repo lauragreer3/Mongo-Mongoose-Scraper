@@ -1,35 +1,49 @@
 module.exports = function (mongoose) {
 
     var articleSchema = new Schema({
-        headline: String,
-        author: String,
-        url: String,
+        headline: {
+            type: String,
+            unique: true,
+            minlength: 1, 
+            trim: true,
+        },  
+        author: {
+            type: String,
+            required: false,
+            winlength: 1
+        },    
+        url: {
+            type:String,
+            required: true,
+            validate: {
+                validator: function(v) {
+                    return true;
+                    //@todo test validation
+                    // return URIError.IsWellFormedUriString(v, UriKind.RelativeOrAbsolute) && ^((http|ftp|https|www)://)?([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?$
+                }
+            }         
+        },      
         body: String,
         date_published: Date,
-        date_added: {
-            type: Date,
-            default: Date.now
-        },
+        date_added: { type: Date, default: Date.now },        
         notes: [{
             author: String,
             email: String,
-            date_added: {
-                type: Date,
-                default: Date.now
-            }
+            notes: String,
+            date_added: { type: Date, default: Date.now }
         }]
     });
 
     var Article = mongoose.model('Article', articleSchema);
 
-    articleSchema.methods.findDuplicateArticle = function (article, cb) {
-        //check if the article is already in the database
-        results = this.model('Article').find({
-            type: this.type,
-            headline: article.headline
-        }, cb);
-        //if not, save to the database
-    };
+    // articleSchema.methods.findDuplicateArticle = function (article, cb) {
+    //     //check if the article is already in the database
+    //     results = this.model('Article').find({
+    //         type: this.type,
+    //         headline: article.headline
+    //     }, cb);
+    //     //if not, save to the database
+    // };
 
     articleSchema.methods.saveArticle = function (article, cb) {
         var NewArticle = new Article({
