@@ -16,12 +16,13 @@ var hbs = exphbs.create({
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, "app/views"));
+app.use(express.static(path.join(__dirname, 'app/public/')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/', newsController);
-app.use(express.static('app/public/javascript'));
-app.use(express.static('app/public/css'));
+// app.use(express.static('app/public/javascript'));
+// app.use(express.static('app/public/css'));
 
 let port = process.env.PORT;
 if (port == null || port == "") {

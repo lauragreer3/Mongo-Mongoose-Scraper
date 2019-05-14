@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var autoIncrement = require('mongoose-auto-increment');
 autoIncrement.initialize(mongoose);
+var Schema = new mongoose.Schema;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 
@@ -10,6 +11,7 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlin
             unique: true,
             minlength: 1, 
             trim: true,
+            required: true
         },  
         author: {
             type: String,
@@ -60,11 +62,13 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlin
             if (err) {
                 console.log('Error');
                 console.log(err);
-            } else {
+            } 
+            else
+            {
                 console.log('Article Saved');
                 conslog.log(NewArticle);
             }
-        })
+        });
     };
 
     articleSchema.plugin(autoIncrement.plugin, 'Article');

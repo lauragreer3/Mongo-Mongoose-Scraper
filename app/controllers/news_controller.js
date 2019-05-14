@@ -27,8 +27,8 @@ var Articles = require('../data/article_schema');
     });
 
     NewsController.all('', function(req, res) {
-        res.sendFile(path.join(__dirname, '../views'))
-    })
+        res.sendFile(path.join(__dirname, '../views'));
+    });
 
     NewsController.get('/scrape_news', function(req, res) {
         axios.get(news_url).then((response) => {
@@ -36,7 +36,7 @@ var Articles = require('../data/article_schema');
             //get the top 10 headlines
             const $ = cheerio.load(response.data);
             //select the headlines
-            var articles = []
+            var articles = [];
             $('section#block-659018 div.card-img-md article').each(function(i, elem) {
                 var article = {};
                 articles[i].headline = $(this).find('h3.tnt-headline a').text().trim();
