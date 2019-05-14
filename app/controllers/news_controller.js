@@ -40,6 +40,7 @@ var Articles = require('../data/article_schema');
             $('section#block-659018 div.card-img-md article').each(function(i, elem) {
                 var article = {};
                 article.headline = $(this).find('h3.tnt-headline a').text().trim();
+                article.url = news_url + $(this).find ('h3.tnt-headline a').attr('href');
                 article.summary = $(this).find('p, int-summary').text().trim();
                 article.author = $(this).find('.tnt-byline').text().trim();
                 article.date_published = $(this).find('time.tnt-date').attr("datetime");

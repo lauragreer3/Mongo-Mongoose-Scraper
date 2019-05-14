@@ -28,7 +28,7 @@ $(document).ready(function() {
                 articles.forEach(article => {
                     article_list.append('<div class="card"> \
                     <div class="card-header text-center">\
-                        <h3>' + article.headline + '</h3>\
+                        <a target="_blank" href="' + article.url + '"><h3>' + article.headline + '</h3></a>\
                     </div>\
                     <div class="card-body">\
                     ' + article.summary + '\
