@@ -21,8 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/', newsController);
-// app.use(express.static('app/public/javascript'));
-// app.use(express.static('app/public/css'));
 
 let port = process.env.PORT;
 if (port == null || port == "") {
