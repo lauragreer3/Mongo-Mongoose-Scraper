@@ -6,7 +6,7 @@ var axios = require('axios');
 var mongoose = require('mongoose');
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 var news_url = "https://gazette.com/news/";
-var Articles = require('../data/article_schema');
+var Article = require('../data/article_schema');
 
 
     var NewsController = express.Router();
@@ -16,9 +16,8 @@ var Articles = require('../data/article_schema');
     NewsController.use(bodyParser.text());
     NewsController.use(bodyParser.json({type: 'application/vpn.api+json'}));
 
-    var Articles = require('../data/article_schema');
 
-    NewsController.get('/', function(req, res) {
+    NewsController.get('/', function(req, res, next) {
         // var current_articles = Articles.find({}, limit(10).sort({ date_published: -1})).then(function());
         res.render('index', {
             msg: 'testing',
@@ -53,4 +52,22 @@ var Articles = require('../data/article_schema');
             res.json(articles);
         });
     });
+
+    NewsController.post('/save_article', function(req, res) {
+        article_to_save = req.body;
+        console.log(req.body);
+        console.log('headline: ' + article_to_save.headline);
+        var new_article = new Article({
+            headline : article_to_save.headline,
+            url: article_to_save.url,
+            summary: article_to_save.summary,
+            author: article_to_save.author,
+            date_published: article_to_save.date_published
+        });
+        new_article.save().then(() => {
+            console.log('article saved');
+        });
+        // console.log(new_article);
+    });
+
     module.exports = NewsController;

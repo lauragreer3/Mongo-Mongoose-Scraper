@@ -3,7 +3,12 @@ var autoIncrement = require('mongoose-auto-increment');
 autoIncrement.initialize(mongoose);
 var Schema = new mongoose.Schema;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
 
+});
 
     var articleSchema = new mongoose.Schema({
         headline: {
@@ -58,7 +63,7 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlin
             body: article.body,
             date_published: article.date_published
         });
-        NewArticle.save(function (err) {
+        NewArticle.save(function(err) {
             if (err) {
                 console.log('Error');
                 console.log(err);
