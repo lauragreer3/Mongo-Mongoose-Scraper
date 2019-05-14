@@ -5,7 +5,7 @@ var cheerio = require('cheerio');
 var axios = require('axios');
 var mongoose = require('mongoose');
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-var news_url = "https://gazete.com/news/";
+var news_url = "https://gazette.com/news/";
 var Articles = require('../data/article_schema');
 
 
@@ -39,12 +39,12 @@ var Articles = require('../data/article_schema');
             var articles = [];
             $('section#block-659018 div.card-img-md article').each(function(i, elem) {
                 var article = {};
-                articles[i].headline = $(this).find('h3.tnt-headline a').text().trim();
-                artcicle.summary = $(this).find('p, int-summary').text().trim();
-                article.author = $(this).find('tnt-byline').text().trim();
-                article.date_published = $(this).find('time.int-date').attr("datetime");
-                article.date_published_relative = $(this).find('time-int-date').text().trim();
-                article.push(article);
+                article.headline = $(this).find('h3.tnt-headline a').text().trim();
+                article.summary = $(this).find('p, int-summary').text().trim();
+                article.author = $(this).find('.tnt-byline').text().trim();
+                article.date_published = $(this).find('time.tnt-date').attr("datetime");
+                article.date_published_relative = $(this).find('time.tnt-date').text().trim();
+                articles.push(article);
                 if (i > 8) return false;
 
             });
