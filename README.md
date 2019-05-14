@@ -11,7 +11,7 @@ create app.js for front end
         delete article
     list article funciton
     scrape new articles function
-        denverpost.com scrape new articles
+        gazette.com/news scrape new articles
             list of 10 from front page
             for description, go to article page and grab first <p> for article summary
     add note to article function
